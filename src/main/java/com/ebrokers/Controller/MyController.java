@@ -1,6 +1,5 @@
 package com.ebrokers.Controller;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
@@ -13,13 +12,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
 
 import com.ebrokers.Beans.MerchantBean;
 import com.ebrokers.Beans.PropertyBean;
-import com.ebrokers.Beans.User;
 import com.ebrokers.Entity.Merchant;
 import com.ebrokers.Entity.Property;
 import com.ebrokers.Repositries.MerchantRepository;
@@ -31,7 +27,7 @@ public class MyController {
 
 	public ConcurrentHashMap<String, MerchantBean> merchant = new ConcurrentHashMap<>();
 	public ConcurrentHashMap<String, PropertyBean> propert = new ConcurrentHashMap<>();
-	public MerchantBean mb = new MerchantBean();
+//	public MerchantBean mb = new MerchantBean();
 	
 	@Autowired
 	PropertyRepository propertyRepository;
@@ -77,9 +73,9 @@ public class MyController {
 
 	@GetMapping("getMerchant/{id}")
 	@ResponseBody
-	public Optional<Merchant> getMerchant(@PathVariable Integer id) {
+	public Merchant getMerchant(@PathVariable Integer id) {
 		logger.info("In getMerchant : " + id);
-		return merchantRepository.findById(id);
+		return merchantRepository.getById(id);
 	}
 
 	@GetMapping("getAllMerchant")
