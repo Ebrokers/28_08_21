@@ -1,0 +1,57 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+    
+    <title>Add Property</title>
+    <meta charset="UTF-8">
+    
+</head>
+<body>
+<center>PROPERTY DETAILS</center>
+
+<form action="#" th:action="@{/addUser}" th:object="${user}" method="post">
+    <div class="mb-3">
+	  <label for="name" class="form-label">Building Name</label>
+	  <input type="text" class="form-control" id="name" placeholder="name@example.com">
+	</div>
+	
+	 <div class="mb-3">
+	  <label for="occupation" class="form-label">LandMark</label>
+	  <input type="text" class="form-control" id="occupation" placeholder="name@example.com">
+	</div>
+	
+	<select class="form-select" aria-label="Default select example">
+	  <option selected>State</option>
+	  <option value="1">One</option>
+	  <option value="2">Two</option>
+	  <option value="3">Three</option>
+	</select>
+	
+	<select class="form-select" aria-label="Default select example">
+	  <option selected>City</option>
+	  <option value="1">One</option>
+	  <option value="2">Two</option>
+	  <option value="3">Three</option>
+	</select>
+	
+	<select class="form-select" aria-label="Default select example">
+	  <option selected>Location</option>
+	  <option value="1">One</option>
+	  <option value="2">Two</option>
+	  <option value="3">Three</option>
+	</select>
+
+    <div class="col-auto">
+	    <button type="submit" class="btn btn-primary mb-3">Confirm</button>
+	    <button type="reset" class="btn btn-primary mb-3">Reset</button>
+	 </div>
+</form>
+
+</body>
+</html>
