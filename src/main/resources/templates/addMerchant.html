@@ -14,37 +14,16 @@
 </head>
 <body>
 <center>MERCHANT DETAILS</center>
-<form action="#" th:action="@{/addMerchantInDb}" th:object="${user}" method="post">
+<form action="#" th:action="@{/addMerchant}" th:object="${merchant}" method="post">
     <div class="mb-3">
 	  <label for="exampleFormControlInput1" class="form-label">Merchant Name</label>
-	  <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+	  <input type="text" class="form-control" th:field="*{name}" id="merName">
 	</div>
 	
 	 <div class="mb-3">
 	  <label for="exampleFormControlInput1" class="form-label">Email</label>
-	  <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+	  <input type="email" class="form-control" th:field="*{email}" id="emailId">
 	</div>
-	
-	<select class="form-select" aria-label="Default select example">
-	  <option selected>State</option>
-	  <option value="1">One</option>
-	  <option value="2">Two</option>
-	  <option value="3">Three</option>
-	</select>
-	
-	<select class="form-select" aria-label="Default select example">
-	  <option selected>City</option>
-	  <option value="1">One</option>
-	  <option value="2">Two</option>
-	  <option value="3">Three</option>
-	</select>
-	
-	<select class="form-select" aria-label="Default select example">
-	  <option selected>Location</option>
-	  <option value="1">One</option>
-	  <option value="2">Two</option>
-	  <option value="3">Three</option>
-	</select>
 
     <div class="col-auto">
 	    <button type="submit" class="btn btn-primary mb-3">Confirm</button>

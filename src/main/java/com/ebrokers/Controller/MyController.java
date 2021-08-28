@@ -2,20 +2,28 @@ package com.ebrokers.Controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.ebrokers.Beans.MerchantBean;
 import com.ebrokers.Beans.PropertyBean;
 import com.ebrokers.Beans.User;
+import com.ebrokers.Entity.Merchant;
+import com.ebrokers.Entity.Property;
+import com.ebrokers.Repositries.MerchantRepository;
+import com.ebrokers.Repositries.PropertyRepository;
 
 @Controller
 public class MyController {
@@ -24,6 +32,12 @@ public class MyController {
 	public ConcurrentHashMap<String, MerchantBean> merchant = new ConcurrentHashMap<>();
 	public ConcurrentHashMap<String, PropertyBean> propert = new ConcurrentHashMap<>();
 	public MerchantBean mb = new MerchantBean();
+	
+	@Autowired
+	PropertyRepository propertyRepository;
+	
+	@Autowired
+	MerchantRepository merchantRepository;
 	
 	//Index Page
 	
@@ -36,98 +50,74 @@ public class MyController {
 	//Adding Merchant
 	
 	@GetMapping("/addMerchant")
-	public String addMerDetails(User user) {
-		logger.info("merchantId : "+ user.getName());
+	public String addMerDetails(Merchant merchant) {
 		return "addMerchant";
 	}
 
-	@PostMapping("/addMerchantInDb")
-	public String getMerDetails(User user) {
-		logger.info("merchantId2 : "+ user.getName());
-		//Service call to insert User in DB
-		return "showMessage";
+	@PostMapping("/addMerchant")
+	public void getMerDetails(Merchant merchant) {
+		logger.info("Merchant Name: " + merchant.getName());
+		merchantRepository.save(merchant);
 	}
-	
+
 	//Adding Property
 	
 	@GetMapping("/addProperty")
-	public String addProDetails(User user) {
-		logger.info("merchantId : "+ user.getName());
-		return "addMerchant";
+	public String addProDetails(Property property) {
+		return "addProperty";
 	}
 
-	@PostMapping("/addMerchantInDb")
-	public String getProDetails(User user) {
-		logger.info("merchantId2 : "+ user.getName());
-		//Service call to insert Property in DB
-		return "showMessage";
+	@PostMapping("/addProperty")
+	public void getProDetails(Property property) {
+		logger.info("Property Name: : " + property.getName());
+		propertyRepository.save(property);
 	}
-	
 	
 	// Merchant Details
 
 	@GetMapping("getMerchant/{id}")
-	public MerchantBean getMerchant(@PathVariable String id) {
-		// Service call to getMerchant Details By Id
-		return merchant.get(id);
+	@ResponseBody
+	public Optional<Merchant> getMerchant(@PathVariable Integer id) {
+		logger.info("In getMerchant : " + id);
+		return merchantRepository.findById(id);
 	}
 
 	@GetMapping("getAllMerchant")
-	public List<MerchantBean> getAllMerchant() {
-		// Service call to getAllMerchant
-		return new ArrayList<MerchantBean>(merchant.values());
-	}
-
-	@PostMapping("addMerchant")
-	public MerchantBean addMerchant(@RequestBody MerchantBean e) throws Exception {
-		merchant.put(String.valueOf(e.getId()), e);
-		// Service call to MerchantBean to DB
-		return e;
+	@ResponseBody
+	public List<Merchant> getAllMerchant() {
+		logger.info("In getAllMerchant() : ");
+		return merchantRepository.findAll();
 	}
 
 	@GetMapping("delMerchant/{id}")
-	public MerchantBean deleteMerchant(@PathVariable String id) {
-		// Service call to Delete Merchant by Id
-		return merchant.remove(id);
+	@ResponseBody
+	public String deleteMerchant(@PathVariable Integer id) {
+		logger.info("In deleteMerchant() : "+id);
+		merchantRepository.deleteById(id);
+		return "Merchant Deleted...";
 	}
 
 	// PROPERTY DETAILS
 
 	@GetMapping("getProperty/{id}")
-	public PropertyBean getProperty(@PathVariable String id) {
-		// Service call to getProperty Details By Id
-		return propert.get(id);
+	@ResponseBody
+	public Property getProperty(@PathVariable Integer id) {
+		logger.info("In getProperty : " + id);
+		return propertyRepository.getById(id);
 	}
 
 	@GetMapping("getAllProperty")
-	public List<PropertyBean> getAllProperty() {
-		// Service call to getAllProperty
-		return new ArrayList<PropertyBean>(propert.values());
+	@ResponseBody
+	public List<Property> getAllProperty() {
+		logger.info("In getProperty : ");
+		return propertyRepository.findAll();
 	}
-
-	@PostMapping("addProperty")
-	public PropertyBean addProperty(@RequestBody PropertyBean e) {
-		propert.put(String.valueOf(e.getId()), e);
-		// Service call to PropertyBean to DB
-		return e;
-	}
-
+	
 	@GetMapping("delProperty/{id}")
-	public PropertyBean deleteProperty(@PathVariable String id) {
-		// Service call to Delete Property by Id
-		return propert.remove(id);
+	@ResponseBody
+	public String delProperty(@PathVariable Integer id) {
+		logger.info("In delProperty() : "+id);
+		propertyRepository.deleteById(id);
+		return "Property Deleted...";
 	}
-
-	/*
-	 * @GetMapping("index/{id}") public ModelAndView processIndex(@PathVariable
-	 * String Meid) throws Exception{ logger.info(
-	 * "Executing IndexController for merchantId : "+Meid);
-	 * 
-	 * final ModelAndView modelAndView = new ModelAndView();
-	 * 
-	 * 
-	 * modelAndView.setViewName("icicibank");
-	 * 
-	 * return modelAndView; }
-	 */
 }

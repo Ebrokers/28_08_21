@@ -2,32 +2,25 @@ package com.ebrokers.Beans;
 
 public class MerchantBean {
 	
-	public Long id;
-	
+	public Integer  id;
 	public String name;
-	
 	public String email;
 
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
-
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
-
 	public String getName() {
 		return name;
 	}
-
 	public void setName(String name) {
 		this.name = name;
 	}
-
 	public String getEmail() {
 		return email;
 	}
-
 	public void setEmail(String email) {
 		this.email = email;
 	}
