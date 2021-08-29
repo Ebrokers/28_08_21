@@ -1,15 +1,17 @@
-<!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head lang="en">
+    <meta charset="UTF-8"/>
     <title>Home Page</title>
-    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/main.css" />
 </head>
 <body>
-
 <center> <h1>HOME PAGE FRONT END</h1> </center>
-
 <!-- Write logic to only display all details from property table base on meid received in request -->
-<p th:text="'Name: ' + ${ppl.get(0)}"></p>
+
+    <div id="react"></div>
+
+    <script src="built/bundle.js"></script>
 
 </body>
 </html>

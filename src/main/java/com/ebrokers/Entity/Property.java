@@ -12,7 +12,7 @@ public class Property {
 	public Integer  id;
 	public String name;
 	public String location;
-	private String meid;
+	private Integer meid;
 	
 	public Integer getId() {
 		return id;
@@ -32,10 +32,10 @@ public class Property {
 	public void setLocation(String location) {
 		this.location = location;
 	}
-	public String getMeid() {
+	public Integer getMeid() {
 		return meid;
 	}
-	public void setMeid(String meid) {
+	public void setMeid(Integer meid) {
 		this.meid = meid;
 	}
 }

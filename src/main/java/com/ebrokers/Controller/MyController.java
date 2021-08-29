@@ -1,17 +1,20 @@
 package com.ebrokers.Controller;
 
 import java.util.List;
-import java.util.Optional;
+
 import java.util.concurrent.ConcurrentHashMap;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ebrokers.Beans.MerchantBean;
@@ -20,14 +23,14 @@ import com.ebrokers.Entity.Merchant;
 import com.ebrokers.Entity.Property;
 import com.ebrokers.Repositries.MerchantRepository;
 import com.ebrokers.Repositries.PropertyRepository;
-
+import java.util.Collection;
 @Controller
+
 public class MyController {
 	private static final Logger logger = LoggerFactory.getLogger(MyController.class);
 
 	public ConcurrentHashMap<String, MerchantBean> merchant = new ConcurrentHashMap<>();
 	public ConcurrentHashMap<String, PropertyBean> propert = new ConcurrentHashMap<>();
-//	public MerchantBean mb = new MerchantBean();
 	
 	@Autowired
 	PropertyRepository propertyRepository;
@@ -84,7 +87,13 @@ public class MyController {
 		logger.info("In getAllMerchant() : ");
 		return merchantRepository.findAll();
 	}
-
+	
+	@GetMapping
+	@ResponseBody
+	Collection<Merchant> groups() {
+		return merchantRepository.findAll();
+	}
+	
 	@GetMapping("delMerchant/{id}")
 	@ResponseBody
 	public String deleteMerchant(@PathVariable Integer id) {
@@ -115,5 +124,14 @@ public class MyController {
 		logger.info("In delProperty() : "+id);
 		propertyRepository.deleteById(id);
 		return "Property Deleted...";
+	}
+	
+	//getByMeid
+	
+	@GetMapping("getByMeId/{meid}")
+	@ResponseBody
+	public List<Property> getByMeId(@PathVariable Integer meid) {
+		logger.info("In getByMeId : " + meid);
+		return propertyRepository.getByMeId(meid);
 	}
 }

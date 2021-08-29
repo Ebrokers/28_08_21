@@ -5,7 +5,7 @@ public class PropertyBean {
 	public Integer  id;
 	public String name;
 	public String location;
-	private String meid;
+	private Integer meid;
 
 	public Integer  getId() {
 		return id;
@@ -31,11 +31,11 @@ public class PropertyBean {
 		this.location = location;
 	}
 
-	public String getMeid() {
+	public Integer getMeid() {
 		return meid;
 	}
 
-	public void setMeid(String meid) {
+	public void setMeid(Integer meid) {
 		this.meid = meid;
 	}
 
